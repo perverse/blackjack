@@ -4,12 +4,12 @@ use App\Cards\CardInterface as CardInterface;
 
 class Jack implements CardInterface {
 
-    public static function getIndex()
+    public function getIndex()
     {
         return "J";
     }
 
-    public static function getVariations()
+    public function getVariations()
     {
         return array(
             'S' => '',

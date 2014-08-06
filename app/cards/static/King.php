@@ -2,11 +2,11 @@
 
 use App\Cards\CardInterface as CardInterface;
 
-class Three implements CardInterface {
+class King implements CardInterface {
 
     public function getIndex()
     {
-        return "3";
+        return "K";
     }
 
     public function getVariations()
@@ -21,7 +21,7 @@ class Three implements CardInterface {
 
     public function getValue()
     {
-        return 3;
+        return 10;
     }
 
 }

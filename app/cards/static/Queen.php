@@ -4,12 +4,12 @@ use App\Cards\CardInterface as CardInterface;
 
 class Queen implements CardInterface {
 
-    public static function getIndex()
+    public function getIndex()
     {
         return "Q";
     }
 
-    public static function getVariations()
+    public function getVariations()
     {
         return array(
             'S' => '',
