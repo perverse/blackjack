@@ -8,6 +8,7 @@
 	},
 	"autoload": {
 		"classmap": [
+			"app/cards",
 			"app/commands",
 			"app/controllers",
 			"app/models",

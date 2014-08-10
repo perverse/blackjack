@@ -1,12 +1,12 @@
-<?php namespace App\Cards\Static;
+<?php namespace App\Cards\Statics;
 
-use App\Cards\CardInterface as CardInterface;
+use App\Cards\Contracts\CardInterface as CardInterface;
 
-class Five implements CardInterface {
+class Nine implements CardInterface {
 
     public function getIndex()
     {
-        return "5";
+        return "9";
     }
 
     public function getVariations()
@@ -21,7 +21,7 @@ class Five implements CardInterface {
 
     public function getValue()
     {
-        return 5;
+        return 9;
     }
 
 }

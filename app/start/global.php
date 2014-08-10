@@ -78,4 +78,6 @@ App::down(function()
 |
 */
 
+Validator::extend('isacard', 'App\Cards\Validator@isacard');
+
 require app_path().'/filters.php';

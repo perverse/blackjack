@@ -1,4 +1,4 @@
-<?php namespace App\Cards;
+<?php namespace App\Cards\Contracts;
 
 interface CardInterface {
     public function getIndex();

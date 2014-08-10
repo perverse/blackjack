@@ -1,48 +1,56 @@
-<?php
+<?php namespace App\Cards;
 
-class Deck {
+use App\Cards\Contracts\DeckInterface;
 
-    private $deck = array();
+class Deck implements DeckInterface {
+
+    private $cards = array();
+    private $cardObjects = array();
 
     public function __construct(array $cardObjects)
     {
-        $this->cardsObjects = $cardObjects;
+        $this->cardObjects = $cardObjects;
     }
 
-    public function getDeck()
+    public function getCards()
     {
-        // if static deck array is falsey/empty array - generate new deck
-        if (empty($this->deck)) {
+        // if static deck array is empty - generate new deck
+        if (count($this->cards) < 1) {
 
-            $this->deck = array(); // recast as array in case $deck has been set to another falsey value
+            $this->cards = array(); // recast as array in case $deck has been set to another falsey value
 
             foreach ($this->cardObjects as $objName) {
-
                 $cardType = new $objName();
                 foreach ($cardType->getVariations() as $suit => $image) {
-                    $this->deck[$cardType->getIndex() . $suit] = new $objName();
+                    $this->cards[$cardType->getIndex() . $suit] = new $objName();
                 }
 
             }
 
         }
 
-        return $this->deck;
+        return $this->cards;
     }
 
     public function getCard($cardIndex)
     {
-        $deck = $this->getDeck();
+        $cards = $this->getCards();
         $ret = null;
 
         // interface validation will take care of card validity
         // create a default of null just in case
 
-        if (isset($deck[$cardIndex])) {
-            $ret = $deck[$cardIndex];
+        if (isset($cards[$cardIndex])) {
+            $ret = $cards[$cardIndex];
         }
 
         return $ret;
+    }
+
+    public function getCardIndexes()
+    {
+        $cards = $this->getCards();
+        return array_keys($cards);
     }
 
 }

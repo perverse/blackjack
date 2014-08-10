@@ -1,5 +1,7 @@
 <?php
 
+use App\Commands\BlackjackSimple;
+
 /*
 |--------------------------------------------------------------------------
 | Register The Artisan Commands
@@ -11,3 +13,4 @@
 |
 */
 
+Artisan::add(new BlackjackSimple);
