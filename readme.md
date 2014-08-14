@@ -1,4 +1,4 @@
-## Simple Blackjack Calculator, by Ronnie Pyne
+## Simple Blackjack Calculator
 
 This is a simple web app built upon Laravel 4.2 to meet the business requirements of a coding task.
 
