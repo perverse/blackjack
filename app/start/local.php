@@ -1,2 +1,2 @@
 <?php
-Validator::extends('isacard', 'App\Cards\Validator@isacard');
+Validator::extend('isacard', 'App\Cards\Validator@isacard');

@@ -31,6 +31,36 @@ class BlackjackSimple extends Command {
         parent::__construct();
     }
 
+    public function do_echo($text)
+    {
+        $this->info('   '.$text);
+    }
+
+    public function do_error($text)
+    {
+        $textArr = explode("\n", $text);
+
+        $maxStrLen = 0;
+
+        foreach ($textArr as $row) {
+            $length = strlen($row);
+            $maxStrLen = ($length > $maxStrLen) ? $length : $maxStrLen;
+        }
+
+        if ($maxStrLen) {
+            $padding = 6;
+            $this->error('');
+            $this->error(str_repeat(' ', $maxStrLen + $padding));
+            $this->error(str_pad('-- Error --', $maxStrLen + $padding, " ", STR_PAD_BOTH));
+            foreach ($textArr as $row) {
+                $row = "   $row";
+                $row = str_pad($row, $maxStrLen + $padding, " ");
+                $this->error($row);
+            }
+            $this->error(str_repeat(' ', $maxStrLen + $padding));
+        }
+    }
+
     /**
      * Execute the console command.
      *
@@ -46,8 +76,15 @@ class BlackjackSimple extends Command {
         $calc = App::make('BlackjackCalculator');
 
         if (empty($inputCards)) {
-            $this->error('  You must provide cards that match the format:  ');
-            $this->info('  ' . implode(', ', $calc->getDeck()->getCardIndexes()) . '  ');
+            $this->do_echo('Welcome to my simple blackjack calculator.');
+            $this->do_echo('');
+            $this->do_echo('To calculate a blackjack score, provide 1 or more of the following cards:  ');
+            $this->do_echo('' . implode(', ', $calc->getDeck()->getCardIndexes()) . '');
+            $this->do_echo('');
+            $this->do_echo('In the following format:');
+            $this->do_echo('');
+            $this->do_echo('e.g: "php artisan blackjack:simple --card=AH --card=10D"');
+            $this->do_echo('For more help, type php artisan blackjack:simple --help');
         }
 
         foreach ($inputCards as $cardIndex) {
@@ -63,19 +100,19 @@ class BlackjackSimple extends Command {
             }
         }
 
-        if ($invalidCards) {
-            $this->error('  Invalid cards input: ' . implode(', ', $invalidCards) . '  ');
+        if (count($invalidCards)) {
+            $this->do_error('Invalid card/s: ' . implode(', ', $invalidCards) . '');
 
             if (count($invalidCards) === count($inputCards)) {
-                $this->error('  No valid cards found :(  ');
+                $this->do_error('No valid cards found :(');
             }
         }
 
         if (count($validCards)) {
-            $this->info('  Valid cards input: ' . implode(', ', $validCards) . '  ');
-            $this->info('  Adding together...  ');
-            $this->info("");
-            $this->info('  Your Blackjack score - ' . $calc->add($validCards) . '  ');
+            $this->do_echo('Valid cards input: ' . implode(', ', $validCards) . '');
+            $this->do_echo('Adding together...  ');
+            $this->do_echo("");
+            $this->do_echo('Your Blackjack score is ' . $calc->add($validCards) . '');
         }
         
     }
@@ -99,7 +136,7 @@ class BlackjackSimple extends Command {
     protected function getOptions()
     {
         return array(
-            array('card', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, '--card=AH --card=10C', array()),
+            array('card', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Add a card to the calculator, e.g --card=AH', array())
         );
     }
 

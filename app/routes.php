@@ -11,7 +11,5 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'App\Controllers\BlackjackController@show_index');
+Route::get('blackjack', 'App\Controllers\BlackjackController@api');
